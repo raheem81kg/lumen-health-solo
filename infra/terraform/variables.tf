@@ -41,6 +41,11 @@ variable "ssh_public_key" {
   description = "Public key for VM access. Supply via TF_VAR_ssh_public_key (e.g. contents of ~/.ssh/id_ed25519.pub). Never commit private keys."
   type        = string
   sensitive   = true
+
+  validation {
+    condition     = can(regex("^ssh-(rsa|ed25519) ", var.ssh_public_key))
+    error_message = "ssh_public_key is empty or invalid. Export TF_VAR_ssh_public_key=\"$(cat ~/.ssh/lumen-deploy.pub)\" before applying."
+  }
 }
 
 variable "allowed_ssh_cidr" {

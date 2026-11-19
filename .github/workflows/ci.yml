@@ -69,6 +69,8 @@ jobs:
           context: .
           file: apps/${{ matrix.app }}/Dockerfile
           push: true
+          build-args: |
+            NEXT_PUBLIC_SERVER_URL=http://localhost:3000
           secret-files: |
             web_env=apps/web/.env
             server_env=apps/server/.env

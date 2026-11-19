@@ -118,7 +118,6 @@ jobs:
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           source: "deploy/lumen-health"
           target: "~"
-          rm: true
       - name: Deploy and wait for health checks
         uses: appleboy/ssh-action@v1
         with:
@@ -173,7 +172,6 @@ jobs:
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           source: "deploy/lumen-health"
           target: "~"
-          rm: true
       - name: Deploy and wait for health checks
         uses: appleboy/ssh-action@v1
         with:

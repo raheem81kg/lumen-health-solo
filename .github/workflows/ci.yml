@@ -94,6 +94,7 @@ jobs:
         run: |
           mkdir -p deploy/lumen-health/apps/server deploy/lumen-health/apps/web
           cp docker-compose.yml deploy/lumen-health/
+          cp -r monitoring deploy/lumen-health/
           cat > deploy/lumen-health/apps/server/.env <<EOF
           NODE_ENV=production
           DATABASE_URL=${{ secrets.DATABASE_URL }}
@@ -103,13 +104,6 @@ jobs:
           NODE_ENV=production
           NEXT_PUBLIC_SERVER_URL=http://${{ env.STAGING_HOST }}:3000
           EOF
-      - name: Debug SSH connectivity (expected fingerprint SHA256:9qy/UdQGxIWGfI/HGBGYO1mn+WGyjmhJNvhyKhVuNf8)
-        run: |
-          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > /tmp/deploy_key
-          chmod 600 /tmp/deploy_key
-          ssh-keygen -lf /tmp/deploy_key
-          ssh -v -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i /tmp/deploy_key \
-            lumenadmin@${{ env.STAGING_HOST }} 'echo runner-ssh-ok' 2>&1 | tail -15
       - name: Copy bundle to the staging VM
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -155,6 +149,7 @@ jobs:
         run: |
           mkdir -p deploy/lumen-health/apps/server deploy/lumen-health/apps/web
           cp docker-compose.yml deploy/lumen-health/
+          cp -r monitoring deploy/lumen-health/
           cat > deploy/lumen-health/apps/server/.env <<EOF
           NODE_ENV=production
           DATABASE_URL=${{ secrets.DATABASE_URL }}

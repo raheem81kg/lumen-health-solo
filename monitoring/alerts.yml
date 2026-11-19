@@ -1,0 +1,29 @@
+groups:
+  - name: lumen-api
+    rules:
+      - alert: ApiDown
+        expr: up{job="lumen-api"} == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Lumen API is down"
+          description: "Prometheus cannot scrape the API /metrics endpoint."
+
+      - alert: HighErrorRate
+        expr: rate(http_errors_total[5m]) > 0.1
+        for: 30s
+        labels:
+          severity: warning
+        annotations:
+          summary: "Elevated API error rate"
+          description: "More than 0.1 errors/sec over the last 5m (injected fault or bad release)."
+
+      - alert: HighLatencyP95
+        expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le)) > 1
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "API p95 latency above 1s"
+          description: "95th percentile request duration exceeded 1 second for 1 minute."

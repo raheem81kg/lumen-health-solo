@@ -11,7 +11,7 @@ export default function Home() {
   const [version, setVersion] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/version`)
+    fetch(`${window.location.protocol}//${window.location.hostname}:3000/version`)
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => d && setVersion(d.version))
       .catch(() => {});

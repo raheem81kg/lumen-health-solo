@@ -2,6 +2,9 @@ name: lumen-health
 
 services:
   web:
+    # Deployed from GHCR (IMAGE_TAG = commit sha, set by the pipeline);
+    # build stays for local `pnpm docker:up`.
+    image: ghcr.io/${GITHUB_REPOSITORY:-raheem81kg/lumen-health-solo}-web:${IMAGE_TAG:-latest}
     build:
       context: .
       dockerfile: apps/web/Dockerfile
@@ -18,7 +21,7 @@ services:
         required: false
     environment:
       SERVER_URL: http://server:3000
-      NEXT_PUBLIC_SERVER_URL: http://server:3000
+      NEXT_PUBLIC_SERVER_URL: ${PUBLIC_API_URL:-http://localhost:3000}
     depends_on:
       server:
         condition: service_healthy
@@ -37,6 +40,7 @@ services:
     restart: unless-stopped
 
   server:
+    image: ghcr.io/${GITHUB_REPOSITORY:-raheem81kg/lumen-health-solo}-server:${IMAGE_TAG:-latest}
     build:
       context: .
       dockerfile: apps/server/Dockerfile
@@ -50,14 +54,14 @@ services:
       - path: apps/server/.env
         required: false
     environment:
-      CORS_ORIGIN: http://localhost:3001
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3001}
     healthcheck:
       test:
         [
           "CMD",
           "node",
           "-e",
-          "fetch('http://localhost:3000/').then((r) => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))",
+          "fetch('http://localhost:3000/health').then((r) => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))",
         ]
       interval: 10s
       timeout: 5s

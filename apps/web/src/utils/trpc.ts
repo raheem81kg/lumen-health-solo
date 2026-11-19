@@ -11,6 +11,9 @@ function getServerUrl(url: string) {
 			? processEnv.SERVER_URL.slice(0, -1)
 			: processEnv.SERVER_URL;
 	}
+	if (typeof window !== "undefined") {
+		return `${window.location.protocol}//${window.location.hostname}:3000`;
+	}
 
 	return url.endsWith("/") ? url.slice(0, -1) : url;
 }

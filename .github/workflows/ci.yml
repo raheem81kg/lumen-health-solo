@@ -126,7 +126,7 @@ jobs:
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
             set -e
-            cd ~/lumen-health
+            cd ~/deploy/lumen-health
             export GITHUB_REPOSITORY="${{ github.repository }}"
             export IMAGE_TAG="${{ inputs.tag || github.sha }}"
             export CORS_ORIGIN="http://${{ env.STAGING_HOST }}:3001"
@@ -180,7 +180,7 @@ jobs:
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
             set -e
-            cd ~/lumen-health
+            cd ~/deploy/lumen-health
             export GITHUB_REPOSITORY="${{ github.repository }}"
             export IMAGE_TAG="${{ inputs.tag || github.sha }}"
             export CORS_ORIGIN="http://${{ env.PROD_HOST }}:3001"

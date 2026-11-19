@@ -52,11 +52,26 @@ jobs:
       - name: Resolve image tag (commit sha, or the tag given for a manual run)
         id: tag
         run: echo "tag=${{ inputs.tag || github.sha }}" >> "$GITHUB_OUTPUT"
+      - name: Write env files for BuildKit secret mounts
+        run: |
+          mkdir -p apps/server apps/web
+          cat > apps/server/.env <<EOF
+          NODE_ENV=production
+          DATABASE_URL=${{ secrets.DATABASE_URL }}
+          CORS_ORIGIN=http://localhost:3001
+          EOF
+          cat > apps/web/.env <<EOF
+          NODE_ENV=production
+          NEXT_PUBLIC_SERVER_URL=http://localhost:3000
+          EOF
       - uses: docker/build-push-action@v6
         with:
           context: .
           file: apps/${{ matrix.app }}/Dockerfile
           push: true
+          secret-files: |
+            web_env=apps/web/.env
+            server_env=apps/server/.env
           tags: |
             ghcr.io/${{ github.repository }}-${{ matrix.app }}:${{ steps.tag.outputs.tag }}
             ghcr.io/${{ github.repository }}-${{ matrix.app }}:latest

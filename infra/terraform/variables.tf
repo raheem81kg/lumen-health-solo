@@ -75,3 +75,9 @@ variable "deploy_app_port" {
   type        = number
   default     = 3001
 }
+
+variable "dns_label" {
+  description = "Domain name label for the public IP (<label>.<region>.cloudapp.azure.com). Defaults to the resource prefix; override when the label is taken/reserved elsewhere."
+  type        = string
+  default     = ""
+}

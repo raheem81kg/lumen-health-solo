@@ -16,8 +16,8 @@ permissions:
   packages: write
 
 env:
-  STAGING_HOST: lumen-staging.eastus.cloudapp.azure.com
-  PROD_HOST: lumen-prod.eastus.cloudapp.azure.com
+  STAGING_HOST: lumen-staging2.eastus.cloudapp.azure.com
+  PROD_HOST: lumen-prod2.eastus.cloudapp.azure.com
 
 jobs:
   # A failing check fails this job, and everything downstream is skipped — nothing deploys.
@@ -87,7 +87,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: staging
-      url: http://lumen-staging.eastus.cloudapp.azure.com:3001
+      url: http://lumen-staging2.eastus.cloudapp.azure.com:3001
     steps:
       - uses: actions/checkout@v4
       - name: Stage deploy bundle (compose file + per-env env files)
@@ -142,7 +142,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: http://lumen-prod.eastus.cloudapp.azure.com:3001
+      url: http://lumen-prod2.eastus.cloudapp.azure.com:3001
     steps:
       - uses: actions/checkout@v4
       - name: Stage deploy bundle (compose file + per-env env files)

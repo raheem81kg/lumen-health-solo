@@ -11,7 +11,7 @@ A care-tasks web app **and** the platform that deploys, monitors, and recovers i
 
 | | Staging | Production |
 |---|---|---|
-| Web | `http://lumen-staging.eastus.cloudapp.azure.com:3001` | `http://lumen-prod.eastus.cloudapp.azure.com:3001` |
+| Web | `http://lumen-staging2.eastus.cloudapp.azure.com:3001` | `http://lumen-prod2.eastus.cloudapp.azure.com:3001` |
 | API | `…:3000` (`/health` `/ready` `/metrics` `/version`) | same |
 | Prometheus | `…:9090` | same |
 | Grafana | `…:3002` (admin/admin) | same |

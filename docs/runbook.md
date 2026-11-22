@@ -7,10 +7,10 @@ Written so the game-day responder can operate using only this document.
 
 | Thing | Staging | Production |
 |---|---|---|
-| Web app | `http://lumen-staging.eastus.cloudapp.azure.com:3001` | `http://lumen-prod.eastus.cloudapp.azure.com:3001` |
-| API | `http://lumen-staging.eastus.cloudapp.azure.com:3000` | `http://lumen-prod.eastus.cloudapp.azure.com:3000` |
-| Prometheus | `http://lumen-staging.eastus.cloudapp.azure.com:9090` | `http://lumen-prod.eastus.cloudapp.azure.com:9090` |
-| Grafana | `http://lumen-staging.eastus.cloudapp.azure.com:3002` | `http://lumen-prod.eastus.cloudapp.azure.com:3002` |
+| Web app | `http://lumen-staging2.eastus.cloudapp.azure.com:3001` | `http://lumen-prod2.eastus.cloudapp.azure.com:3001` |
+| API | `http://lumen-staging2.eastus.cloudapp.azure.com:3000` | `http://lumen-prod2.eastus.cloudapp.azure.com:3000` |
+| Prometheus | `http://lumen-staging2.eastus.cloudapp.azure.com:9090` | `http://lumen-prod2.eastus.cloudapp.azure.com:9090` |
+| Grafana | `http://lumen-staging2.eastus.cloudapp.azure.com:3002` | `http://lumen-prod2.eastus.cloudapp.azure.com:3002` |
 | Dashboard | `…:3002/d/lumen-api-overview` | same path on prod host |
 
 - SSH: `ssh -i ~/.ssh/lumen-deploy lumenadmin@<host>`

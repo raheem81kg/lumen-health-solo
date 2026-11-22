@@ -1,7 +1,7 @@
 # Game Day — Injected API Failure
 
 **Date:** 2026-11-19
-**Environment:** staging (`lumen-staging.eastus.cloudapp.azure.com`)
+**Environment:** staging (`lumen-staging2.eastus.cloudapp.azure.com`)
 **Operator:** Raheem
 **Doc used:** `docs/runbook.md` only — no prior knowledge of the fault.
 
